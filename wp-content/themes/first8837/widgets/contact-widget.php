@@ -91,7 +91,7 @@ class Elementor_contact_Widget extends \Elementor\Widget_Base
                             <div class="contact-form">
                                 <h3>Send a Direct Message</h3>
                                 <div class="widget-inner">
-                                    <form action="#" method="post" id="contact-form">
+                                    <form action="" method="post" id="contact-form">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <p>

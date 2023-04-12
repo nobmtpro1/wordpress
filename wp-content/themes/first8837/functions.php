@@ -53,9 +53,18 @@ function register_elementor_widgets($widgets_manager)
     $widgets_manager->register(new \Elementor_project_list_Widget());
 }
 add_action('elementor/widgets/register', 'register_elementor_widgets');
-add_filter( 'get_pagenum_link', 'wpse_78546_pagenum_link' );
 
-function wpse_78546_pagenum_link( $link )
+function post_contact($data)
 {
-    return preg_replace( '~/page/(\d+)/?~', '?paged=\1', $link );
+    dd($data['name']);
 }
+add_action('rest_api_init', function () {
+    register_rest_route(
+        'postRequest',
+        '/contact',
+        array(
+            'methods' => 'POST',
+            'callback' => 'post_contact',
+        )
+    );
+});

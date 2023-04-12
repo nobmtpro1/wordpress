@@ -59,7 +59,7 @@ class Elementor_project_list_Widget extends \Elementor\Widget_Base
         $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
         // dd($term);
 
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        $paged = intval($_GET['page']) ?? 1;
         $posts = new WP_Query([
             'posts_per_page' => 1,
             'post_type' => 'project',
@@ -153,25 +153,21 @@ class Elementor_project_list_Widget extends \Elementor\Widget_Base
                         <?php
                         $links = paginate_links([
                             'total' => $posts->max_num_pages,
+                            'current' => max(1, intval($_GET['page']) ?? 1),
                             'prev_text' => __('<'),
                             'next_text' => __('>'),
                             'type' => 'array',
+                            'format' => '?page=%#%',
                         ]); foreach ($links ?? [] as $link):
                             ?>
                             <li>
                                 <?= $link ?>
                             </li>
                         <?php endforeach ?>
-                        <!-- <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">13</a></li> -->
                     </ul>
                 </div> <!-- /.col-md-12 -->
             </div> <!-- /.row -->
         </div> <!-- /.container -->
-
 
         <?php
     }
