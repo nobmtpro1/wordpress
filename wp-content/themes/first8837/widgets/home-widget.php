@@ -31,17 +31,72 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'content_section',
             [
-                'label' => esc_html__('Content', 'elementor-home-widget'),
+                'label' => esc_html__('List Content', 'elementor-list-widget'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
 
-        $this->add_control(
-            'logo',
+        /* Start repeater */
+
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'title',
             [
-                'label' => esc_html__('Logo', 'elementor-home-widget'),
-                'type' => \Elementor\Controls_Manager::MEDIA,
-            ],
+                'label' => esc_html__('Title', 'elementor-home-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'label_block' => true,
+                'dynamic' => [
+                    'active' => true,
+                ],
+            ]
+        );
+
+        $repeater->add_control(
+            'description',
+            [
+                'label' => esc_html__('Description', 'elementor-home-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'label_block' => true,
+                'dynamic' => [
+                    'active' => true,
+                ],
+            ]
+        );
+        $repeater->add_control(
+            'description',
+            [
+                'label' => esc_html__('Description', 'elementor-home-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'label_block' => true,
+                'dynamic' => [
+                    'active' => true,
+                ],
+            ]
+        );
+
+        $repeater->add_control(
+            'icon',
+            [
+                'label' => esc_html__('Icon', 'elementor-home-widget'),
+                'type' => \Elementor\Controls_Manager::ICON,
+                'label_block' => true,
+                'dynamic' => [
+                    'active' => true,
+                ],
+            ]
+        );
+
+        /* End repeater */
+
+        $this->add_control(
+            'list_items',
+            [
+                'label' => esc_html__('List Items', 'elementor-home-widget'),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater->get_controls(),
+                'title_field' => '{{{ title }}}',
+            ]
         );
 
         $this->end_controls_section();
@@ -51,6 +106,7 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
+        // dd($settings['list_items']);
         ?>
 
         <section id="homeIntro" class="parallax first-widget">
@@ -84,86 +140,25 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
         <section class="light-content services">
             <div class="container">
                 <div class="row">
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-umbrella fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Easy Theme Colors</h3>
-                                <p>There are 4 color themes (blue, green, red, orange) and this one is green.</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-mobile-phone fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Change Icons</h3>
-                                <p>Check <a rel="nofollow" href="http://fontawesome.io/icons/" target="_blank">FontAwesome</a>
-                                    for your suitable icons. Example: &lt;i class=&quot;fa fa-download&quot;&gt;&lt;/i&gt;</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-pencil-square-o fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Pixel Perfect Design</h3>
-                                <p>Based on a 12 column grid system, with every pixel snapped.</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
+                    <?php foreach ($settings['list_items'] as $item): ?>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service-box-wrap">
+                                <div class="service-icon-wrap">
+                                    <i class="<?= $item['icon'] ?>"></i>
+                                </div> <!-- /.service-icon-wrap -->
+                                <div class="service-cnt-wrap">
+                                    <h3 class="service-title">
+                                        <?= $item['title'] ?>
+                                    </h3>
+                                    <p>
+                                        <?= $item['description'] ?>
+                                    </p>
+                                </div> <!-- /.service-cnt-wrap -->
+                            </div> <!-- /.service-box-wrap -->
+                        </div> <!-- /.col-md-4 -->
+                    <?php endforeach ?>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-code fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Valid HTML5</h3>
-                                <p>We offer validated html files and well commented code on our themes.</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-eye-slash fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Retina Ready</h3>
-                                <p>Incredibly clean design provides you powerful way to grow your business.</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="service-box-wrap">
-                            <div class="service-icon-wrap">
-                                <i class="fa fa-suitcase fa-2x"></i>
-                            </div> <!-- /.service-icon-wrap -->
-                            <div class="service-cnt-wrap">
-                                <h3 class="service-title">Special Thanks</h3>
-                                <p>Credit goes to <a rel="nofollow" href="http://unsplash.com" target="_blank">Unsplash</a> for
-                                    images used in this template.</p>
-                            </div> <!-- /.service-cnt-wrap -->
-                        </div> <!-- /.service-box-wrap -->
-                    </div> <!-- /.col-md-4 -->
-
-                </div> <!-- /.row -->
             </div> <!-- /.container -->
         </section> <!-- /.services -->
 
@@ -195,7 +190,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project1.jpg" alt="Visual Admin">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project1.jpg"
+                            alt="Visual Admin">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -213,7 +209,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project2.jpg" alt="Compass Template">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project2.jpg"
+                            alt="Compass Template">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -231,7 +228,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project3.jpg" alt="Awesome Theme">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project3.jpg"
+                            alt="Awesome Theme">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -249,7 +247,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project4.jpg" alt="Volton Personal Site">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project4.jpg"
+                            alt="Volton Personal Site">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -267,7 +266,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project5.jpg" alt="Rectangle Design">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project5.jpg"
+                            alt="Rectangle Design">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -285,7 +285,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project6.jpg" alt="Masonry Gallery">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project6.jpg"
+                            alt="Masonry Gallery">
                     </div>
                 </div> <!-- /.item -->
                 <div class="item">
@@ -303,7 +304,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                                 </div>
                             </div>
                         </div>
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project7.jpg" alt="Gloss Template">
+                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/project7.jpg"
+                            alt="Gloss Template">
                     </div>
                 </div> <!-- /.item -->
             </div> <!-- /#owl-demo -->
@@ -361,7 +363,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-4">
                             <div class="team-member">
                                 <div class="thumb-post">
-                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member1.jpg" alt="">
+                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member1.jpg"
+                                        alt="">
                                     <span class="member-role">Marketing Manager</span>
                                 </div>
                                 <div class="member-content">
@@ -374,7 +377,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-4">
                             <div class="team-member">
                                 <div class="thumb-post">
-                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member2.jpg" alt="">
+                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member2.jpg"
+                                        alt="">
                                     <span class="member-role">Web Developer</span>
                                 </div>
                                 <div class="member-content">
@@ -387,7 +391,8 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-4">
                             <div class="team-member">
                                 <div class="thumb-post">
-                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member3.jpg" alt="">
+                                    <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/member3.jpg"
+                                        alt="">
                                     <span class="member-role">Graphic Designer</span>
                                 </div>
                                 <div class="member-content">
@@ -417,8 +422,9 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-6">
                             <div class="blog-post clearfix">
                                 <div class="thumb-post">
-                                    <a href="blog-single.html"><img src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb1.jpg" alt=""
-                                            class="img-circle"></a>
+                                    <a href="blog-single.html"><img
+                                            src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb1.jpg"
+                                            alt="" class="img-circle"></a>
                                 </div>
                                 <div class="blog-post-content">
                                     <h4 class="post-title"><a href="blog-single.html">Getting Creative With the Google Maps
@@ -430,8 +436,9 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-6">
                             <div class="blog-post clearfix">
                                 <div class="thumb-post">
-                                    <a href="blog-single.html"><img src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb2.jpg" alt=""
-                                            class="img-circle"></a>
+                                    <a href="blog-single.html"><img
+                                            src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb2.jpg"
+                                            alt="" class="img-circle"></a>
                                 </div>
                                 <div class="blog-post-content">
                                     <h4 class="post-title"><a href="blog-single.html">Design Deliverables – easily share
@@ -443,8 +450,9 @@ class Elementor_home_Widget extends \Elementor\Widget_Base
                         <div class="col-md-4 col-sm-6">
                             <div class="blog-post clearfix">
                                 <div class="thumb-post">
-                                    <a href="blog-single.html"><img src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb3.jpg" alt=""
-                                            class="img-circle"></a>
+                                    <a href="blog-single.html"><img
+                                            src="<?php bloginfo('template_directory'); ?>/green/images/includes/blogthumb3.jpg"
+                                            alt="" class="img-circle"></a>
                                 </div>
                                 <div class="blog-post-content">
                                     <h4 class="post-title"><a href="blog-single.html">Using Templates to Get Your Clients
