@@ -70,28 +70,7 @@ class Elementor_project_Widget extends \Elementor\Widget_Base
         </div> <!-- /.pageTitle -->
 
         <div class="container">
-            <div class="row project-single">
-                <div class="col-md-8">
-                    <div class="project-img">
-                        <img src="<?php bloginfo('template_directory'); ?>/green/images/includes/projectimage1.jpg"
-                            alt="Project Image 1">
-                    </div> <!-- /.project-img -->
-                </div> <!-- /.col-md-8 -->
-                <div class="col-md-4">
-                    <div class="project-info">
-                        <span class="subtitle">Subtitle Goes here</span>
-                        <h3 class="project-title">Project Image Post Format</h3>
-                        <p class="description">Sed consequat lobortis risus, in rutrum arcu tristique eget. Etiam accumsan
-                            lectus quis cursus porta.<br><br>Nam convallis neque nec magna malesuada dictum. Aliquam commodo
-                            erat non tellus porta imperdiet sit amet eu lacus.</p>
-                        <ul class="meta-post">
-                            <li><span>Date:</span>February 2084</li>
-                            <li><span>Skills:</span>Branding, Illustration</li>
-                            <li><span>URL:</span><a href="#">www.company.com</a></li>
-                        </ul>
-                    </div> <!-- /.project-info -->
-                </div> <!-- /.col-md-4 -->
-            </div> <!-- /.row -->
+            <?php the_content() ?>
         </div> <!-- /.container -->
 
         <div class="static-info-project">

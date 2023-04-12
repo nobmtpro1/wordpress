@@ -83,24 +83,7 @@ class Elementor_blog_Widget extends \Elementor\Widget_Base
                                     <span class="meta-date"><a href="#">24 February 2084</a></span>
                                     <span class="meta-comments"><a href="#blog-comments">3 Comments</a></span>
                                     <span class="meta-author"><a href="#blog-author">Candy Sharp</a></span>
-                                    <h3>Standard Blog Post Formating Medigo</h3>
-                                    <p>Sed consequat lobortis risus, in rutrum arcu tristique eget. Etiam accumsan lectus quis
-                                        cursus porta. Etiam a turpis sed sapien malesuada pellentesque quis id tortor. Phasellus
-                                        mattis quam enim, non accumsan nibh tincidunt sed.</p>
-                                    <p>Nostrum, quibusdam, eaque, numquam, fuga dolores libero amet suscipit in saepe optio
-                                        facilis aperiam nulla iste molestiae reprehenderit facere dolorem illum ea quam incidunt
-                                        est quos odio. Aperiam, repellendus, at, eaque quas eligendi ut ipsum voluptate vero
-                                        fugiat molestiae labore eius similique cumque necessitatibus sequi dolore quam enim
-                                        nostrum.</p>
-                                    <blockquote>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, quisquam, aut, eum,
-                                        natus excepturi impedit ipsa rerum ratione id dolores ducimus minus eos quod veniam
-                                        similique fugit illum error facilis!
-                                    </blockquote>
-                                    <p>Culpa, iure, debitis, exercitationem, vitae aperiam excepturi explicabo distinctio ea
-                                        nisi illo temporibus dignissimos praesentium dolorem reiciendis iste officiis odio nemo
-                                        dolor illum laboriosam? Architecto, earum accusamus sequi distinctio veniam amet ea
-                                        quibusdam eos sapiente!</p>
+                                    <?php the_content() ?>
                                     <div class="tag-items">
                                         <span class="small-text">Tags:</span>
                                         <a href="#" rel="tag">business</a>
