@@ -44,13 +44,19 @@ function register_elementor_widgets($widgets_manager)
     require_once(__DIR__ . '/widgets/footer-widget.php');
     require_once(__DIR__ . '/widgets/home-widget.php');
     require_once(__DIR__ . '/widgets/contact-widget.php');
-    require_once(__DIR__ . '/widgets/project-list-widget.php');
+    require_once(__DIR__ . '/widgets/projects-widget.php');
+    require_once(__DIR__ . '/widgets/project-widget.php');
+    require_once(__DIR__ . '/widgets/blogs-widget.php');
+    require_once(__DIR__ . '/widgets/blog-widget.php');
 
     $widgets_manager->register(new \Elementor_header_Widget());
     $widgets_manager->register(new \Elementor_footer_Widget());
     $widgets_manager->register(new \Elementor_home_Widget());
     $widgets_manager->register(new \Elementor_contact_Widget());
-    $widgets_manager->register(new \Elementor_project_list_Widget());
+    $widgets_manager->register(new \Elementor_projects_Widget());
+    $widgets_manager->register(new \Elementor_project_Widget());
+    $widgets_manager->register(new \Elementor_blogs_Widget());
+    $widgets_manager->register(new \Elementor_blog_Widget());
 }
 add_action('elementor/widgets/register', 'register_elementor_widgets');
 
